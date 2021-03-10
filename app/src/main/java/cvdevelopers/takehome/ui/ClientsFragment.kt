@@ -9,23 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import cvdevelopers.takehome.utils.Resource
-import cvdevelopers.takehome.utils.autoCleared
 import cvdevelopers.githubstalker.databinding.ClientsFragmentBinding
 import cvdevelopers.takehome.ClientsViewModel
+import cvdevelopers.takehome.utils.Resource
 import cvdevelopers.takehome.utils.toView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClientsFragment : Fragment() {
 
-    private var binding: ClientsFragmentBinding by autoCleared()
+    lateinit var binding: ClientsFragmentBinding
     private val viewModel: ClientsViewModel by viewModels()
     private lateinit var adapter: ClientsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        adapter = ClientsAdapter()
     }
 
     override fun onCreateView(
@@ -47,9 +46,12 @@ class ClientsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = ClientsAdapter()
-        binding.rvClientsList.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvClientsList.adapter = adapter
+
+        binding.rvClientsList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@ClientsFragment.adapter
+        }
+
     }
 
     private fun setupObservers() {
@@ -68,6 +70,10 @@ class ClientsFragment : Fragment() {
         })
     }
 
+    override fun onDestroyView() {
+        binding.rvClientsList.adapter = null
+        super.onDestroyView()
+    }
 
     companion object {
         fun newInstance() = ClientsFragment()

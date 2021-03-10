@@ -15,4 +15,10 @@ interface ClientDao {
 
     @Query("DELETE FROM client_table")
     fun deleteClients()
+
+    @Transaction
+    fun makeInsertion(clients: List<ClientTable>) {
+        deleteClients()
+        insertClients(clients)
+    }
 }

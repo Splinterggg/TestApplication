@@ -3,7 +3,8 @@ package cvdevelopers.takehome.utils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import cvdevelopers.takehome.utils.Resource.Status.*
+import cvdevelopers.takehome.utils.Resource.Status.ERROR
+import cvdevelopers.takehome.utils.Resource.Status.SUCCESS
 import kotlinx.coroutines.Dispatchers
 
 fun <T, A> performGetOperation(
@@ -15,7 +16,7 @@ fun <T, A> performGetOperation(
         emit(Resource.loading())
         val source = databaseQuery.invoke().map { Resource.success(it) }
         emitSource(source)
-        if (source.value?.status == SUCCESS && (source.value?.data as List<*>).isNullOrEmpty()) {
+        if (source.value?.status == SUCCESS && (source.value?.data as? List<*>).isNullOrEmpty()) {
             val responseStatus = networkCall.invoke()
             if (responseStatus.status == SUCCESS) {
                 saveCallResult(responseStatus.data!!)

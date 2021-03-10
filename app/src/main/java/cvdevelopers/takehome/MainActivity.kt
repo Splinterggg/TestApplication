@@ -1,17 +1,8 @@
 package cvdevelopers.takehome
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import androidx.fragment.app.transaction
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import cvdevelopers.githubstalker.R
 import cvdevelopers.githubstalker.databinding.ActivityMainBinding
 import cvdevelopers.takehome.ui.ClientsFragment

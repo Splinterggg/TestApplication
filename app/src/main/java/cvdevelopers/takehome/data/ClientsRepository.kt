@@ -17,8 +17,7 @@ class ClientsRepository @Inject constructor(
         databaseQuery = { dao.getClients() },
         networkCall = { clientsDataSource.getClients() },
         saveCallResult = {
-            dao.deleteClients()
-            dao.insertClients(it.results.map { it.toTableItem() })
+            dao.makeInsertion(it.results.map { it.toTableItem() })
         }
     )
 
@@ -26,8 +25,7 @@ class ClientsRepository @Inject constructor(
         databaseQuery = { dao.getClients() },
         networkCall = { clientsDataSource.getClients() },
         saveCallResult = {
-            dao.deleteClients()
-            dao.insertClients(it.results.map { it.toTableItem() })
+            dao.makeInsertion(it.results.map { it.toTableItem() })
         }
     )
 }
