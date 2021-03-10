@@ -1,22 +1,17 @@
 package cvdevelopers.takehome
 
 import android.app.Application
-import cvdevelopers.takehome.dagger.ApplicationComponent
-import cvdevelopers.takehome.dagger.ApplicationModule
-import cvdevelopers.takehome.dagger.DaggerApplicationComponent
+import cvdevelopers.githubstalker.BuildConfig
+import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
-class LuminaryTakeHomeApplication : Application() {
-
-    val appComponent: ApplicationComponent by lazy {
-        DaggerApplicationComponent
-                .builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
-    }
-
+@HiltAndroidApp
+class LuminaryTakeHomeApplication : Application(){
     override fun onCreate() {
         super.onCreate()
-        appComponent.inject(this);
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
 }
